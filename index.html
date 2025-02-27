@@ -48,19 +48,31 @@
         }
 
         function checkVPN() {
-            // Simulasi VPN check
-            const vpnAllowed = Math.random() > 0.3; // 70% chance lulus
-            if (vpnAllowed) {
-                document.getElementById("vpnCheck").style.display = "none";
-                document.getElementById("archiveContent").style.display = "block";
-            } else {
-                document.getElementById("vpnCheck").innerHTML = "VPN DETECTED. ACCESS DENIED.";
-                setTimeout(() => {
-                    document.getElementById("passwordInput").style.display = "block";
-                    document.getElementById("vpnCheck").style.display = "none";
-                }, 2000);
-            }
-        }
+    // Simulasi VPN check
+    const vpnAllowed = Math.random() > 0.3; // 70% chance lulus
+
+    if (vpnAllowed) {
+        document.getElementById("vpnCheck").style.display = "none";
+        document.getElementById("archiveContent").style.display = "block";
+    } else {
+        document.getElementById("vpnCheck").innerHTML = `
+            VPN DETECTED. ACCESS GRANTED.<br><br>
+            <button id="proceedBtn">Proceed Anyway</button>
+            <button id="changeMindBtn">I change my mind</button>
+        `;
+
+        document.getElementById("proceedBtn").addEventListener("click", () => {
+            window.location.href = "homepage.html";
+        });
+
+        document.getElementById("changeMindBtn").addEventListener("click", () => {
+            document.getElementById("vpnCheck").innerHTML = "Good choice.";
+            setTimeout(() => {
+                window.close();
+            }, 3000);
+        });
+    }
+}
     </script>
 </body>
 </html>
