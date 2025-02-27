@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEKOD V2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: black; color: lime; font-family: monospace; text-align: center; overflow: hidden; }
+        #loading, #passwordInput, #vpnCheck, #archiveContent { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none; }
+        .glitch { animation: glitch 1.5s infinite; }
+        @keyframes glitch { 0% { text-shadow: 2px 2px red; } 50% { text-shadow: -2px -2px blue; } 100% { text-shadow: 2px 2px red; } }
+    </style>
+</head>
+<body>
+    <div id="loading">LOADING...</div>
+    <div id="passwordInput">
+        <p>ENTER PASSWORD:</p>
+        <input type="password" id="password" />
+        <button onclick="checkPassword()">SUBMIT</button>
+        <p id="errorMsg" style="color:red; display:none;">INCORRECT PASSWORD</p>
+    </div>
+    <div id="vpnCheck">
+        <p>VERIFYING VPN...</p>
+    </div>
+    <div id="archiveContent" class="glitch">
+        <p>ARCHIVE DEKOD ACCESSED</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("loading").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("passwordInput").style.display = "block";
+            }, 2000);
+        });
+
+        function checkPassword() {
+            const password = document.getElementById("password").value;
+            if (password === "DEKOD2025") {
+                document.getElementById("passwordInput").style.display = "none";
+                document.getElementById("vpnCheck").style.display = "block";
+                setTimeout(checkVPN, 2000);
+            } else {
+                document.getElementById("errorMsg").style.display = "block";
+            }
+        }
+
+        function checkVPN() {
+            // Simulasi VPN check
+            const vpnAllowed = Math.random() > 0.3; // 70% chance lulus
+            if (vpnAllowed) {
+                document.getElementById("vpnCheck").style.display = "none";
+                document.getElementById("archiveContent").style.display = "block";
+            } else {
+                document.getElementById("vpnCheck").innerHTML = "VPN DETECTED. ACCESS DENIED.";
+                setTimeout(() => {
+                    document.getElementById("passwordInput").style.display = "block";
+                    document.getElementById("vpnCheck").style.display = "none";
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
